@@ -353,11 +353,11 @@ ethanol:{w:62,h:74,f:function(){return '<svg viewBox="0 0 60 70"><path d="M16 19
 hplc:{w:96,h:84,f:function(){return '<svg viewBox="0 0 100 88"><path d="M19 22Q19 30 26 30M31 22Q31 28 36 30" fill="none" stroke="#46566e" stroke-width="1.300"/><rect x="12" y="6" width="14" height="17" rx="3" fill="#cfe6ff" stroke="'+ST+'" stroke-width="1.400"/><rect x="29" y="8" width="14" height="15" rx="3" fill="#e7b46a" stroke="'+ST+'" stroke-width="1.400"/><rect x="6" y="23" width="88" height="16" rx="3" fill="#dfe5ee" stroke="'+ST+'" stroke-width="1.600"/><rect x="10" y="26" width="24" height="10" rx="1.500" fill="#1d2a3a"/><path d="M12 33l4-3 4 2 4-4 4 3 4-2" stroke="#59e69a" stroke-width="1" fill="none"/><circle cx="82" cy="31" r="2" fill="#2fcf7a"/><circle cx="88" cy="31" r="2" fill="#ffb13d"/><text x="58" y="33" font-size="6" font-weight="700" text-anchor="middle" fill="#46566e" font-family="Arial,sans-serif">HPLC</text><rect x="6" y="40" width="88" height="16" rx="3" fill="#cdd5e1" stroke="'+ST+'" stroke-width="1.600"/><rect x="12" y="43" width="42" height="10" rx="1.500" fill="#46566e"/><circle cx="18" cy="48" r="1.700" fill="#bfe0ff"/><circle cx="24" cy="48" r="1.700" fill="#bfe0ff"/><circle cx="30" cy="48" r="1.700" fill="#ffd9a0"/><circle cx="36" cy="48" r="1.700" fill="#bfe0ff"/><circle cx="42" cy="48" r="1.700" fill="#bfe0ff"/><rect x="6" y="57" width="88" height="15" rx="3" fill="#dfe5ee" stroke="'+ST+'" stroke-width="1.600"/><rect x="14" y="60" width="5" height="10" rx="2" fill="#8a96a8" stroke="'+ST+'" stroke-width="1"/><path d="M24 65h40" stroke="#b7c1d0" stroke-width="2"/><rect x="6" y="73" width="88" height="12" rx="3" fill="#cdd5e1" stroke="'+ST+'" stroke-width="1.600"/><circle cx="84" cy="79" r="3" fill="#8a96a8" stroke="'+ST+'" stroke-width="1"/><path d="M96 31Q99 50 94 68" fill="none" stroke="#46566e" stroke-width="1.300"/></svg>'}},
 rotovap:{w:98,h:100,f:function(){return '<svg viewBox="0 0 110 104"><rect x="98" y="6" width="5" height="96" rx="2" fill="#59647a" stroke="'+ST+'" stroke-width="1.400"/><path d="M98 40H86" stroke="'+ST+'" stroke-width="4" stroke-linecap="round"/><rect x="72" y="34" width="20" height="16" rx="4" fill="#59647a" stroke="'+ST+'" stroke-width="1.500"/><circle cx="82" cy="42" r="3" fill="#ffd23f" stroke="'+ST+'" stroke-width="1"/><path d="M80 34V6M86 34V6" stroke="'+ST+'" stroke-width="4.600" stroke-linecap="round"/><path d="M80 34V6M86 34V6" stroke="#eaf6ff" stroke-width="2.200" stroke-linecap="round"/><path d="M78 12h10M78 17h10M78 22h10M78 27h10" stroke="#8fc7ff" stroke-width="1.600"/><path d="M83 6V2" stroke="'+ST+'" stroke-width="2.200"/><path d="M80 28Q60 30 24 32V43" fill="none" stroke="'+ST+'" stroke-width="4.200"/><path d="M80 28Q60 30 24 32V43" fill="none" stroke="#eaf6ff" stroke-width="1.800"/><circle cx="24" cy="54" r="11" fill="#eaf6ff" fill-opacity=".92" stroke="'+ST+'" stroke-width="1.600"/><path d="M14 56Q24 62 34 56Q33 63 24 65Q15 63 14 56z" fill="#9fd0ff" opacity=".75"/><path d="M26 28V16" stroke="none"/><path d="M82 50L66 66" stroke="'+ST+'" stroke-width="4.600" stroke-linecap="round"/><path d="M82 50L66 66" stroke="#eaf6ff" stroke-width="2.200" stroke-linecap="round"/><path d="M22 90Q22 102 56 102Q90 102 90 90L86 80H26z" fill="#8a96a8" stroke="'+ST+'" stroke-width="1.700" stroke-linejoin="round"/><ellipse cx="56" cy="80" rx="30" ry="5.500" fill="#8fc7ff" stroke="'+ST+'" stroke-width="1.400"/><circle cx="58" cy="76" r="16" fill="#eaf6ff" fill-opacity=".92" stroke="'+ST+'" stroke-width="1.600"/><path d="M43 79Q58 86 73 79Q71 88 58 92Q45 88 43 79z" fill="#ffe08a" opacity=".85"/><circle cx="72" cy="96" r="2.200" fill="#2fcf7a"/></svg>'}}
 };
-var NORMAL=['tip','eppendorf','serological','tube','dish','glove','methanol','vflask','ethanol','hplc','rotovap'],BIG=['nmr','hplc','rotovap'],SPECIAL=['tower','shroom','blade','star','potion','chicken','wand','kunai','nmr'],bags={n:[],s:[]};
+var NORMAL=['tip','eppendorf','serological','tube','dish','glove','methanol','vflask','ethanol','hplc','rotovap'],BIG=['nmr','hplc','rotovap'],SPECIAL=['tower','shroom','blade','star','potion','wand','kunai','nmr'],bags={n:[],s:[]};
 function nextType(sp){var b=sp?bags.s:bags.n;if(!b.length){b.push.apply(b,(sp?SPECIAL:NORMAL).slice().sort(function(){return Math.random()-.5}))}return b.pop()}
-var chickenOn=false;
+var chickenOn=false,ending=false;
 function spawnChicken(){
-chickenOn=true;
+chickenOn=true;ending=false;
 var d=T.chicken,el=document.createElement('div');el.className='egg-chicken';el.innerHTML=d.f();document.body.appendChild(el);
 var W=document.documentElement.clientWidth,vh=innerHeight,w=68,hh=64,bc=binC(),dir=Math.random()<.5?-1:1,x1=Math.min(Math.max(bc[0]+dir*(90+Math.random()*150)-w/2,0),W-w),x0=bc[0]-w/2,y0=bc[1]-vh+hh/2+3,x=x1,v=0,mode='fly',until=0,start=performance.now(),last=start,hop=0,ft=0;
 el.classList.add('st');
@@ -371,7 +371,7 @@ if(t>until)plan(t);
 if(mode==='run'){x+=dir*v*dt;hop+=dt*22;if(x<0){x=0;dir=1}if(x>W-w){x=W-w;dir=-1}}
 var y=mode==='run'?-Math.abs(Math.sin(hop))*6:0;
 el.style.transform='translate('+R(x)+'px,'+R(y)+'px) scaleX('+(-dir)+')';
-if(t-start>11000){el.style.opacity=0;setTimeout(function(){el.remove();chickenOn=false},800);return}
+if(ending){el.style.opacity=0;setTimeout(function(){el.remove();chickenOn=false},800);return}
 requestAnimationFrame(step)}
 requestAnimationFrame(step)}
 function spawn(power,sp){
@@ -844,6 +844,7 @@ bin.classList.remove('idle','hit');void bin.offsetWidth;bin.classList.add('hit')
 clicks++;
 if(clicks<MAX){var sp=Math.random()<wp(clicks);spawn(1,sp);
 if(sched[clicks])spawnScene(sched[clicks]);
+if(clicks===20&&!chickenOn)spawnChicken();if(clicks===28)ending=true;
 if(clicks<20&&Math.random()<.3){var sp2=Math.random()<wp(clicks);setTimeout(function(){spawn(.85,sp2)},110)}return}
 finished=true;
 for(var i=0;i<8;i++)(function(i){setTimeout(function(){spawn(1+Math.random()*.3,true)},i*70)})(i);
