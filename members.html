@@ -538,6 +538,31 @@ function boot(x,gy,c){c=c||'#6a4a36';return '<path d="M'+R(x-4)+' '+R(gy-8)+'V'+
 function glove(x,y,r,c){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+(c||'#f2c230')+'" stroke="'+ST+'" stroke-width="1"/><path d="M'+R(x-r*.5)+' '+R(y-r*.45)+'q'+R(r*.5)+' '+R(-r*.4)+' '+R(r)+' 0" stroke="#fff" stroke-width=".8" opacity=".55" fill="none" stroke-linecap="round"/>'}
 var PA=function(a,v,d,b,ex){return '<animate attributeName="'+a+'" values="'+v+'" dur="'+d+'s" begin="'+(b||0)+'s" repeatCount="indefinite"'+(ex||'')+'/>'};
 
+
+/* anime-style head: large glossy eyes, small nose/mouth, soft jaw */
+function afc(cx,cy,r,o){o=o||{};var L=(o.look||0)*r*.22,ey=cy+r*.14,ex=r*.42,sk=o.skin||'#fbdcc0',LN='#4a3a52',s='',mo=ey+r*(o.my||.62),
+iris=o.iris||'#6a9bd8',irisD=o.irisD||'#2f5da8';
+s+='<path d="M'+R(cx-r)+' '+R(cy-r*.15)+'C'+R(cx-r)+' '+R(cy-r)+' '+R(cx+r)+' '+R(cy-r)+' '+R(cx+r)+' '+R(cy-r*.15)+'C'+R(cx+r)+' '+R(cy+r*.55)+' '+R(cx+r*.45)+' '+R(cy+r)+' '+R(cx+r*.05)+' '+R(cy+r*1.12)+'C'+R(cx-r*.45)+' '+R(cy+r)+' '+R(cx-r)+' '+R(cy+r*.55)+' '+R(cx-r)+' '+R(cy-r*.15)+'Z" fill="'+sk+'" stroke="'+LN+'" stroke-width="1" stroke-linejoin="round"/>';
+s+='<path d="M'+R(cx+r*.92)+' '+R(cy+r*.05)+'C'+R(cx+r*.82)+' '+R(cy+r*.7)+' '+R(cx+r*.4)+' '+R(cy+r*1.02)+' '+R(cx+r*.05)+' '+R(cy+r*1.1)+'C'+R(cx+r*.5)+' '+R(cy+r*.8)+' '+R(cx+r*.78)+' '+R(cy+r*.4)+' '+R(cx+r*.92)+' '+R(cy+r*.05)+'Z" fill="#e6ac8f" opacity=".5"/>';
+[-1,1].forEach(function(sd){var x=cx+sd*ex+L,ew=r*.19,eh=r*.27;
+s+='<ellipse cx="'+R(x)+'" cy="'+R(ey)+'" rx="'+R(ew*1.08)+'" ry="'+R(eh)+'" fill="#fff"/>';
+s+='<ellipse cx="'+R(x+L*.12)+'" cy="'+R(ey+r*.02)+'" rx="'+R(r*.165)+'" ry="'+R(eh*.97)+'" fill="'+iris+'"/>';
+s+='<ellipse cx="'+R(x+L*.12)+'" cy="'+R(ey-eh*.38)+'" rx="'+R(r*.16)+'" ry="'+R(eh*.5)+'" fill="'+irisD+'" opacity=".55"/>';
+s+='<ellipse cx="'+R(x+L*.12)+'" cy="'+R(ey+r*.02)+'" rx="'+R(r*.07)+'" ry="'+R(r*.13)+'" fill="#241a33"/>';
+s+='<circle cx="'+R(x-r*.06)+'" cy="'+R(ey-r*.1)+'" r="'+R(r*.075)+'" fill="#fff"/><circle cx="'+R(x+r*.08)+'" cy="'+R(ey+r*.12)+'" r="'+R(r*.035)+'" fill="#fff" opacity=".9"/>';
+s+='<path d="M'+R(x-ew*1.12)+' '+R(ey-r*.02)+'Q'+R(x)+' '+R(ey-eh*1.5)+' '+R(x+ew*1.12)+' '+R(ey-r*.03)+'" fill="none" stroke="'+LN+'" stroke-width="'+R(r*.13)+'" stroke-linecap="round"/>';
+s+='<path d="M'+R(x+sd*ew*1.1)+' '+R(ey-r*.05)+'l'+R(sd*r*.11)+' '+R(-r*.07)+'" stroke="'+LN+'" stroke-width="'+R(r*.09)+'" stroke-linecap="round"/>';
+s+='<path d="M'+R(x-ew)+' '+R(ey+eh*.95)+'Q'+R(x)+' '+R(ey+eh*1.12)+' '+R(x+ew)+' '+R(ey+eh*.95)+'" fill="none" stroke="'+LN+'" stroke-width=".4" opacity=".5"/>';
+if(!o.nobrow)s+='<path d="M'+R(x-r*.25)+' '+R(ey-r*.5-(o.bl||0)*sd*-r*.04)+'Q'+R(x)+' '+R(ey-r*.66)+' '+R(x+r*.27)+' '+R(ey-r*.5+(o.bl||0)*sd*-r*.04)+'" fill="none" stroke="'+(o.brow||'#5a3f33')+'" stroke-width="'+R(r*(o.bw||.1))+'" stroke-linecap="round"/>';
+s+='<ellipse cx="'+R(x+sd*r*.1)+'" cy="'+R(ey+r*.44)+'" rx="'+R(r*.19)+'" ry="'+R(r*.09)+'" fill="#ff8f8a" opacity=".4"/>'});
+s+='<path d="M'+R(cx+L)+' '+R(ey+r*.38)+'q'+R(r*.06)+' '+R(r*.09)+' '+R(-r*.03)+' '+R(r*.11)+'" fill="none" stroke="#c98d78" stroke-width=".7" stroke-linecap="round"/>';
+var m=o.mouth||'smile';
+if(m==='smile')s+='<path d="M'+R(cx+L-r*.15)+' '+R(mo)+'Q'+R(cx+L)+' '+R(mo+r*.15)+' '+R(cx+L+r*.15)+' '+R(mo)+'" fill="none" stroke="#9a4a4a" stroke-width="'+R(r*.07)+'" stroke-linecap="round"/>';
+else if(m==='open')s+='<path d="M'+R(cx+L-r*.17)+' '+R(mo-r*.03)+'Q'+R(cx+L)+' '+R(mo+r*.3)+' '+R(cx+L+r*.17)+' '+R(mo-r*.03)+'Z" fill="#8a2f3a" stroke="#6a2230" stroke-width=".5" stroke-linejoin="round"/><path d="M'+R(cx+L-r*.1)+' '+R(mo+r*.14)+'Q'+R(cx+L)+' '+R(mo+r*.06)+' '+R(cx+L+r*.1)+' '+R(mo+r*.14)+'" stroke="#ff8a95" stroke-width="'+R(r*.07)+'" fill="none"/>';
+else if(m==='grit')s+='<rect x="'+R(cx+L-r*.19)+'" y="'+R(mo-r*.04)+'" width="'+R(r*.38)+'" height="'+R(r*.16)+'" rx="'+R(r*.05)+'" fill="#fff" stroke="#8a3a3a" stroke-width=".6"/>';
+else if(m==='smirk')s+='<path d="M'+R(cx+L-r*.12)+' '+R(mo)+'Q'+R(cx+L+r*.04)+' '+R(mo+r*.1)+' '+R(cx+L+r*.17)+' '+R(mo-r*.07)+'" fill="none" stroke="#9a4a4a" stroke-width="'+R(r*.07)+'" stroke-linecap="round"/>';
+return s}
+
 /* ===================== old mage ===================== */
 function manSVG(){
 var RB='#3f3d9e',RD='#2e2c80',RL='#5d5ac9',GD='#e8b93c',s='';
@@ -562,17 +587,21 @@ s+='<path d="M99 124L98 137M101 124L103 136" stroke="'+ST+'" stroke-width="3.6" 
 /* right arm holding the staff */
 s+=lb(100,104,109,115,9.6,8.6,RB,RL)+lb(109,115,117,109.4,8.6,12.4,RB,RL)+'<path d="M113.6 104.8L120.6 114.2" stroke="'+GD+'" stroke-width="2.2" stroke-linecap="round"/>'
 +'<circle cx="119.4" cy="108.8" r="3.8" fill="#f4cba5" stroke="'+ST+'" stroke-width="1.1"/><path d="M117.2 107.2q2.4 1 4.8 0M117.2 109.8q2.4 1 4.8 0" stroke="#c98d68" stroke-width=".7" fill="none" stroke-linecap="round"/>';
-/* head */
-s+='<circle cx="75.5" cy="85" r="4.6" fill="#eef0f6" stroke="'+ST+'" stroke-width="1"/><circle cx="94.5" cy="85" r="4.6" fill="#eef0f6" stroke="'+ST+'" stroke-width="1"/>';
-s+=face(85,82,10.4,{eyes:'arc',mouth:'none',skin:'#f4cba5',nobrow:1});
-s+='<path d="M73 87Q68 106 77 124Q82 134 85 139Q88 134 93 124Q102 106 97 87Q91 95 85 94Q79 95 73 87Z" fill="#f6f7fb" stroke="'+ST+'" stroke-width="1.3" stroke-linejoin="round"/><path d="M91 96Q99.4 106 93.4 124Q90.4 130 87 136Q94.6 120 91 96Z" fill="#dce1ee" opacity=".8"/><path d="M78 99Q76.6 113 82.6 128M85 101V133M91.6 100Q93 113 87.4 128" fill="none" stroke="#c7cfe0" stroke-width=".9" stroke-linecap="round"/>';
-s+='<circle cx="86.4" cy="87.6" r="3.1" fill="#f0b392" stroke="'+ST+'" stroke-width=".9"/><circle cx="85.6" cy="86.6" r=".9" fill="#fff" opacity=".7"/>';
-s+='<path d="M85 90.6Q80 87.6 73.4 91.8Q72.8 95.2 77.6 94.8Q82.4 94.4 85 92.6Q87.6 94.4 92.4 94.8Q97.2 95.2 96.6 91.8Q90 87.6 85 90.6Z" fill="#fafbfd" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round"/><path d="M80 91.6Q77.4 92.6 75.4 93.6M90 91.6Q92.6 92.6 94.6 93.6" stroke="#cfd6e4" stroke-width=".7" fill="none" stroke-linecap="round"/>';
-s+='<path d="M74.4 82.4Q79 78.4 84 81.2M86 81.2Q91 78.4 95.6 82.4" fill="none" stroke="'+ST+'" stroke-width="4.4" stroke-linecap="round"/><path d="M74.4 82.4Q79 78.4 84 81.2M86 81.2Q91 78.4 95.6 82.4" fill="none" stroke="#fafbfd" stroke-width="3" stroke-linecap="round"/>';
+/* head - anime style */
+s+='<g transform="translate(85 90) scale(1.5) translate(-85 -90)">';
+s+='<path d="M74.6 80Q70.6 94 71.4 108Q73 110.4 74.2 106Q75 98 78.4 90Z" fill="#f4f6fb" stroke="#8791ae" stroke-width="1" stroke-linejoin="round"/><path d="M95.4 80Q99.4 94 98.6 108Q97 110.4 95.8 106Q95 98 91.6 90Z" fill="#dfe4f0" stroke="#8791ae" stroke-width="1" stroke-linejoin="round"/>';
+s+=afc(85,83,9.2,{look:.5,iris:'#5aa6d8',irisD:'#2a6aa8',brow:'#e8ecf6',bw:.14,mouth:'smile',my:.7,skin:'#f6d3b4',nobrow:1});
+s+='<path d="M75.2 76Q74.4 84 77.2 89Q79 84 81 77.6Z" fill="#f6f7fc" stroke="#8791ae" stroke-width=".9" stroke-linejoin="round"/><path d="M94.8 76Q95.6 84 92.8 89Q91 84 89 77.6Z" fill="#e4e8f3" stroke="#8791ae" stroke-width=".9" stroke-linejoin="round"/><path d="M80.4 77.4Q85 82 89.6 77.4" fill="none" stroke="#c9d1e3" stroke-width=".8"/>';
+s+='<path d="M75.6 88Q74 97 79.4 105Q82.2 111 85 115Q87.8 111 90.6 105Q96 97 94.4 88Q92.4 94.4 90 95Q85 93.2 80 95Q77.6 94.4 75.6 88Z" fill="#f6f7fb" stroke="#8791ae" stroke-width="1.1" stroke-linejoin="round"/><path d="M89.6 96Q96 101 91.6 107Q89.6 111 87 114Q92.6 106 89.6 96Z" fill="#dce1ee" opacity=".85"/><path d="M80.6 99Q79.6 104 83.6 110M85 97V113M89.4 99Q90.4 104 86.4 110" fill="none" stroke="#c4ccdf" stroke-width=".8" stroke-linecap="round"/>';
+s+='<path d="M85 88.8Q81 87.2 76.6 90.4Q80.4 90.4 85 89.8Z" fill="#fafbfd" stroke="#8791ae" stroke-width=".8" stroke-linejoin="round"/><path d="M85 88.8Q89 87.2 93.4 90.4Q89.6 90.4 85 89.8Z" fill="#eef0f7" stroke="#8791ae" stroke-width=".8" stroke-linejoin="round"/>';
+s+='<path d="M75.4 80.6Q79.2 77 83.6 79.4M86.4 79.4Q90.8 77 94.6 80.6" fill="none" stroke="#aab3c9" stroke-width="2.6" stroke-linecap="round"/><path d="M75.4 80.6Q79.2 77 83.6 79.4M86.4 79.4Q90.8 77 94.6 80.6" fill="none" stroke="#fafbfd" stroke-width="1.5" stroke-linecap="round"/>';
+s+='</g>';
+s+='<g transform="translate(0 -8)">';
 /* hat */
 s+='<ellipse cx="85" cy="75" rx="22" ry="5.4" fill="'+RB+'" stroke="'+ST+'" stroke-width="1.4"/><path d="M65 76Q85 82 105 76" fill="none" stroke="'+RD+'" stroke-width="1.6" opacity=".6"/>';
 s+='<path d="M65.6 74Q72 52 83 40Q89 33 98 30Q102.4 32 99.4 36Q92 40.4 94 52Q96 63 104.6 74Q85 79.4 65.6 74Z" fill="'+RB+'" stroke="'+ST+'" stroke-width="1.4" stroke-linejoin="round"/><path d="M92 46Q91 60 104.6 74Q98 76.6 90 77Z" fill="'+RD+'" opacity=".7"/><path d="M70 69Q74 54 83 44" fill="none" stroke="'+RL+'" stroke-width="3" stroke-linecap="round" opacity=".75"/>';
 s+='<path d="M66.8 70.6Q85 78 103.4 70.6L104.8 74.4Q85 81 65.4 74.4Z" fill="'+GD+'" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round"/><rect x="82.2" y="73" width="5.8" height="5" rx="1" fill="#ffe27a" stroke="'+ST+'" stroke-width=".8"/>'+star(79,58,4.2,1.8,GD,-8)+star(90,44,2.6,1.1,'#fff2b0');
+s+='</g>';
 /* raised arm + orb */
 s+=lb(70,104,58,98,9.6,8.6,RB,RL)+lb(58,98,52.4,84,8.6,13.4,RB,RL)+'<path d="M46.4 86.4L58.6 81.6" stroke="'+GD+'" stroke-width="2.4" stroke-linecap="round"/>';
 s+='<circle cx="51.6" cy="79.6" r="3.9" fill="#f4cba5" stroke="'+ST+'" stroke-width="1.1"/>';
@@ -656,7 +685,9 @@ s+='<path d="M108 73.6L113 72.4L114.6 98.4H108Z" fill="#ff8a2a"/><path d="M126 7
 s+='<rect x="106.6" y="95.6" width="21" height="3.6" rx="1" fill="#5b4030" stroke="'+ST+'" stroke-width="1"/><rect x="115" y="95.8" width="3.6" height="3.2" rx=".6" fill="#e8c24a"/><rect x="123" y="98.6" width="6.4" height="7.4" rx="1.2" fill="#8a5a34" stroke="'+ST+'" stroke-width="1"/><path d="M124.4 100.6h3.6" stroke="#c99a62" stroke-width=".8"/>';
 /* head */
 s+='<rect x="113.4" y="69" width="7.4" height="4.6" rx="1.6" fill="#f0c49c" stroke="'+ST+'" stroke-width="1"/>';
-s+=face(117,62,8.8,{look:.8,brow:'#4a3426'})+hat(117,62,8.8,'#ffd23f','#d9a400',1.6);
+s+='<path d="M109.6 59Q105.4 62 106.6 68.4Q110 66.6 111.4 62Z" fill="#7a4a2c" stroke="'+ST+'" stroke-width=".8" stroke-linejoin="round"/>';
+s+=afc(117,63,8,{look:.75,iris:'#3f9a63',irisD:'#1f5a3a',brow:'#5a3820',bw:.13,mouth:'open',skin:'#f8d6b8',bl:1})+hat(117,58,8,'#ffd23f','#d9a400',1.6);
+s+='<path d="M109.8 58.4L110.6 64.2L112.8 59.6L114.6 65L117 60L119.8 64.8L121.8 59.6L124.4 63.6L124.4 58.4Z" fill="#7a4a2c" stroke="'+ST+'" stroke-width=".8" stroke-linejoin="round"/><path d="M112.4 60.4L114 62.4M118.6 60.8L120 62.8" stroke="#b27a4c" stroke-width=".9" stroke-linecap="round"/>';
 /* hammer arm: shoulder swing + elbow swing */
 var spl=' calcMode="spline" keySplines=".7 0 1 .85;.15 .5 .35 1" keyTimes="0;.3;1"';
 s+='<g><animateTransform attributeName="transform" type="rotate" values="-52 124 77;0 124 77;-52 124 77" dur="'+cyc+'" repeatCount="indefinite"'+spl+'/>'
@@ -681,10 +712,11 @@ s+='<path d="M205 74.6L210 73.2L211.6 99.2H205Z" fill="#c7e03c"/><path d="M223 7
 s+='<rect x="203.6" y="96.4" width="21" height="3.6" rx="1" fill="#4b3a2c" stroke="'+ST+'" stroke-width="1"/><rect x="212" y="96.6" width="3.6" height="3.2" rx=".6" fill="#c9a640"/>';
 s+='<rect x="210.6" y="69.4" width="7.4" height="4.6" rx="1.6" fill="#e9bd94" stroke="'+ST+'" stroke-width="1"/>';
 /* head with ear-defenders and goggles */
-s+=face(214.4,63,8.8,{look:.9,mouth:'grit',brow:'#3a2a20'});
-s+='<path d="M207 62.2Q207.6 59.2 214 59.2Q221 59.2 222 62.4Q221 65.6 214 65.8Q207.6 65.8 207 62.2Z" fill="#2a2f3a" opacity=".9" stroke="'+ST+'" stroke-width=".8"/><circle cx="211.2" cy="62.6" r="3.7" fill="#bfe6ff" stroke="'+ST+'" stroke-width="1.1" opacity=".92"/><circle cx="218" cy="62.6" r="3.7" fill="#bfe6ff" stroke="'+ST+'" stroke-width="1.1" opacity=".92"/><path d="M209.4 61.2L211.2 59.8M216.2 61.2L218 59.8" stroke="#fff" stroke-width="1" stroke-linecap="round"/><circle cx="211.6" cy="63" r="1.1" fill="#2a2f3a"/><circle cx="218.4" cy="63" r="1.1" fill="#2a2f3a"/>';
-s+=hat(214.4,63,8.8,'#f3f6fa','#aab6c8',1.6);
-s+='<path d="M205.6 58.4Q214 50 224 58" fill="none" stroke="'+ST+'" stroke-width="3.8" stroke-linecap="round"/><path d="M205.6 58.4Q214 50 224 58" fill="none" stroke="#8a96a8" stroke-width="2.2" stroke-linecap="round"/><circle cx="205" cy="62.4" r="4.2" fill="#d9473b" stroke="'+ST+'" stroke-width="1.1"/><circle cx="204" cy="61.2" r="1.3" fill="#fff" opacity=".6"/>';
+s+='<path d="M206.4 59Q203 62.6 204.6 69Q208 66.6 209.2 62Z" fill="#27364f" stroke="'+ST+'" stroke-width=".8" stroke-linejoin="round"/>';
+s+=afc(214.4,63,8,{look:.9,iris:'#d9a23a',irisD:'#8a5a14',brow:'#27364f',bw:.15,mouth:'grit',skin:'#f1c7a2',bl:-1})+hat(214.4,58,8,'#f3f6fa','#aab6c8',1.6);
+s+='<path d="M207 59.4L207.6 64.6L209.8 60.4L211.6 65.6L214.2 60.6L216.8 65.2L218.8 60.4L221.6 64L221.8 59.4Z" fill="#27364f" stroke="'+ST+'" stroke-width=".8" stroke-linejoin="round"/>';
+s+='<path d="M206.6 50.6Q214.4 46.6 222.4 50.6" fill="none" stroke="'+ST+'" stroke-width="3.8" stroke-linecap="round"/><path d="M206.6 50.6Q214.4 46.6 222.4 50.6" fill="none" stroke="#3b3f48" stroke-width="2.2" stroke-linecap="round"/><circle cx="211" cy="49.4" r="3.4" fill="#bfe6ff" stroke="'+ST+'" stroke-width="1.1"/><circle cx="218" cy="49.4" r="3.4" fill="#bfe6ff" stroke="'+ST+'" stroke-width="1.1"/><path d="M209.2 48.2L210.8 47M216.2 48.2L217.8 47" stroke="#fff" stroke-width="1" stroke-linecap="round"/>';
+s+='<circle cx="205.6" cy="62" r="4.2" fill="#d9473b" stroke="'+ST+'" stroke-width="1.1"/><circle cx="204.6" cy="60.8" r="1.3" fill="#fff" opacity=".6"/>';
 /* jackhammer */
 s+='<path d="M236 81.4H253" stroke="'+ST+'" stroke-width="5.4" stroke-linecap="round"/><path d="M236 81.4H253" stroke="#2b2f3a" stroke-width="3.6" stroke-linecap="round"/><path d="M238 80.2H251" stroke="#6b7688" stroke-width=".8" stroke-linecap="round" opacity=".7"/><rect x="241.4" y="82.8" width="5.6" height="4" fill="#8a96a8" stroke="'+ST+'" stroke-width="1"/>';
 s+='<path d="M238.6 88.4Q238.6 86.6 240.6 86.6H247.4Q249.4 86.6 249.4 88.4V99H238.6Z" fill="#f08a24" stroke="'+ST+'" stroke-width="1.3" stroke-linejoin="round"/><path d="M238.8 92.6H249.2" stroke="#3b3f48" stroke-width="2"/><path d="M240.2 88.6V99" stroke="#ffc27a" stroke-width="1.2" stroke-linecap="round" opacity=".9"/><path d="M247.8 88.6V98.6" stroke="#b8561a" stroke-width="1.2" opacity=".6"/><rect x="241.2" y="99" width="5.6" height="5" rx="1" fill="#9aa5b5" stroke="'+ST+'" stroke-width="1"/><path d="M243 104V109L244 111L245 109V104Z" fill="#dfe6f0" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round"/>';
@@ -738,11 +770,13 @@ s+='<path d="M27 22.4Q34.4 19.2 42.4 22.6L41.6 41Q34.8 43.4 28 41Z" fill="'+N1+'
 s+='<path d="M27.6 36.6Q34.6 39 41.6 36.6L41.4 40.6Q34.6 43 27.8 40.6Z" fill="'+RD+'" stroke="'+ST+'" stroke-width="1" stroke-linejoin="round"/><path d="M27.8 38.2Q21.4 35.2 17.6 40.6Q22.6 39.6 27.6 41.2Z" fill="'+RD+'" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round">'+F('M27.8 38.2Q21.4 35.2 17.6 40.6Q22.6 39.6 27.6 41.2Z','M27.8 38.2Q21.4 41.4 16.6 36.2Q22.6 37.6 27.6 41.2Z',.34)+'</path>';
 /* scarf */
 s+='<path d="M30 20.6Q35.4 24.4 41 20.6L41.8 24Q35.4 27.4 29.4 24Z" fill="'+RD+'" stroke="'+ST+'" stroke-width="1" stroke-linejoin="round"/><path d="M30 21.6Q22.6 20.6 16.4 26Q23 24 29.6 25Z" fill="'+RD+'" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round">'+F('M30 21.6Q22.6 20.6 16.4 26Q23 24 29.6 25Z','M30 21.6Q23 24.6 15.4 19.8Q23 21 29.6 25Z',.3)+'</path>';
-/* head */
-s+='<circle cx="34.4" cy="13.6" r="9.4" fill="'+N1+'" stroke="'+ST+'" stroke-width="1.5"/><path d="M28.6 8.4Q33 5.4 39.4 7.4" fill="none" stroke="'+NH+'" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>';
-s+='<path d="M32.4 11.4Q38 9.8 43.2 11.6Q43.8 14.6 42.6 17.4Q37.8 18.6 32.6 17.4Q31.6 14.4 32.4 11.4Z" fill="#f2c79e" stroke="'+ST+'" stroke-width="1"/><path d="M32.6 17.4Q38 19 42.6 17.4" fill="none" stroke="#12161f" stroke-width=".6" opacity=".4"/>';
-s+='<path d="M33.4 14.6L37.2 13.4Q37.6 15.6 35.6 16Q34 16 33.4 14.6Z" fill="#171b27"/><path d="M38.8 13.6L42.6 12.8Q43 15.2 41 15.6Q39.4 15.6 38.8 13.6Z" fill="#171b27"/><circle cx="36.6" cy="14.2" r=".6" fill="#fff"/><circle cx="41.8" cy="13.6" r=".6" fill="#fff"/><path d="M33 12.4L37.6 11.8M38.6 11.6L43 12" stroke="#171b27" stroke-width="1" stroke-linecap="round"/>';
-s+='<path d="M25.6 9.8Q34 5.2 43.6 9.8L43.8 12.4Q34 8.6 25.4 12.4Z" fill="#cfd8e6" stroke="'+ST+'" stroke-width="1.1" stroke-linejoin="round"/><path d="M29 9.6Q34 7.6 39 9.2" fill="none" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".8"/><circle cx="35" cy="10.2" r="1.3" fill="none" stroke="#59657f" stroke-width=".7"/>';
+/* head - anime style */
+s+='<path d="M27 10.4Q20 6.4 11.6 12.4Q19 11.6 25 14.6Z" fill="#2b3558" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round">'+F('M27 10.4Q20 6.4 11.6 12.4Q19 11.6 25 14.6Z','M27 10.4Q21 12.4 12.4 6.6Q20 9 25 14.6Z',.4)+'</path>';
+s+=afc(35,14.6,8.4,{look:.9,iris:'#c94b4b',irisD:'#7a1f2a',brow:'#171b27',bw:.13,mouth:'none',skin:'#f6d3b4',bl:1});
+s+='<path d="M26.4 17.8Q35 21.6 43.6 17.4Q44.2 22.6 36.4 25.2Q28 23.4 26.4 17.8Z" fill="'+N1+'" stroke="'+ST+'" stroke-width="1" stroke-linejoin="round"/><path d="M30 20.4Q35 22.4 41 20" fill="none" stroke="'+NH+'" stroke-width=".8" opacity=".8"/>';
+s+='<path d="M26.2 9.8Q35 5.6 44 9.6L43.8 12.4Q35 8.8 26.4 12.6Z" fill="#cfd8e6" stroke="'+ST+'" stroke-width="1" stroke-linejoin="round"/><path d="M30.4 8.6Q35 6.8 39.6 8.4L39.4 11.2Q35 9.6 30.6 11.2Z" fill="#9fb0c8" stroke="'+ST+'" stroke-width=".7" stroke-linejoin="round"/><path d="M33.4 9.6Q35 8.4 36.6 9.6" fill="none" stroke="#fff" stroke-width=".7" stroke-linecap="round"/>';
+s+='<path d="M25.6 9.6Q23.4 3.4 28.6 4.6Q27.8 .6 32.6 3.2Q34 -1 37.4 3Q41 .2 41.8 4.4Q46.8 4.4 44.2 9.8Q35 6.8 25.6 9.6Z" fill="#2b3558" stroke="'+ST+'" stroke-width="1" stroke-linejoin="round"/><path d="M29 6.2Q31 3.8 33 4.6M37 5Q39.6 3 41.4 5.2" fill="none" stroke="#6e7fb8" stroke-width="1" stroke-linecap="round"/>';
+s+='<path d="M26.8 12.6Q25.8 17 27.8 20.4Q29.2 16.4 29.8 12.8Z" fill="#2b3558" stroke="'+ST+'" stroke-width=".8" stroke-linejoin="round"/>';
 s+='<path d="M26 10.6Q18 8.8 12.4 14Q19 12.2 25.8 14Z" fill="'+RD+'" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round">'+F('M26 10.6Q18 8.8 12.4 14Q19 12.2 25.8 14Z','M26 10.6Q19 13.4 13.4 7Q20 9.6 25.8 14Z',.36)+'</path><path d="M26 11.8Q17 13.4 11.6 20Q19 17.2 25.8 15Z" fill="#a82828" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round">'+F('M26 11.8Q17 13.4 11.6 20Q19 17.2 25.8 15Z','M26 11.8Q18.4 16.6 10.6 13Q19 14.6 25.8 15Z',.42)+'</path>';
 /* front arm with kunai */
 s+=lb(38.4,25.4,45,31,6.4,5.6,N1,NH)+lb(45,31,50.4,28.6,5.6,4.8,N1)+'<rect x="46.4" y="28" width="4.2" height="3.6" rx=".8" fill="#9aa8bf" stroke="'+ST+'" stroke-width=".7" transform="rotate(-24 48.5 29.8)"/><circle cx="52" cy="28" r="2.7" fill="'+N1+'" stroke="'+ST+'" stroke-width="1"/><path d="M52.6 26.6L62 23.6L55.6 30Z" fill="#dfe6f0" stroke="'+ST+'" stroke-width=".9" stroke-linejoin="round"/><path d="M54.2 27L60 25" stroke="#fff" stroke-width=".7" opacity=".8"/><circle cx="50.2" cy="27" r="1.7" fill="none" stroke="'+ST+'" stroke-width=".9"/>';
